@@ -123,7 +123,28 @@ exports.Prisma.UserScalarFieldEnum = {
   lastName: 'lastName',
   email: 'email',
   password: 'password',
-  phoneNumber: 'phoneNumber'
+  phoneNumber: 'phoneNumber',
+  role: 'role',
+  profilePictureId: 'profilePictureId',
+  verificationStatus: 'verificationStatus',
+  verificationCode: 'verificationCode',
+  verificationExpires: 'verificationExpires',
+  passwordResetStatus: 'passwordResetStatus',
+  passwordResetCode: 'passwordResetCode',
+  passwordResetExpires: 'passwordResetExpires',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FileScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  originalName: 'originalName',
+  url: 'url',
+  folder: 'folder',
+  type: 'type',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -136,9 +157,29 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.Role = exports.$Enums.Role = {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+};
+
+exports.VerificationStatus = exports.$Enums.VerificationStatus = {
+  VERIFIED: 'VERIFIED',
+  PENDING: 'PENDING',
+  UNVERIFIED: 'UNVERIFIED'
+};
+
+exports.PasswordResetStatus = exports.$Enums.PasswordResetStatus = {
+  PENDING: 'PENDING',
+  IDLE: 'IDLE'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  File: 'File'
 };
 
 /**

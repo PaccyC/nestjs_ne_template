@@ -14,6 +14,7 @@ import { AdminModule } from './modules/admin/admin.module';
       envFilePath:".env",
       isGlobal: true,
     
+    
      }),
      AdminModule
     ],
