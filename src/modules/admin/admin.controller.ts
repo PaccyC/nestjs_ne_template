@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto';
 import ApiResponse from 'src/utils/ApiResponse';
+import { AdminGuard } from 'src/guards/admin.guard';
 
 @Controller('admin')
 export class AdminController {
@@ -12,6 +13,7 @@ export class AdminController {
 
 
     @Post("/register")
+    @UseGuards(AdminGuard)
     async createAdmin(
         @Body() createAdminDto: CreateAdminDto
     ){
