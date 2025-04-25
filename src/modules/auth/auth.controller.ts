@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Put } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
 import ApiResponse from 'src/utils/ApiResponse';
+import { InitiateAccountVerificationDto, InitiatePasswordResetDto, LoginDto, VerifyAccountDto } from './dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -15,4 +16,42 @@ export class AuthController {
         const response= await this.authService.login(loginDto)
         return ApiResponse.success("User logged in successfully",response)
     }
+
+
+    @Put("/initiate-account-verification")
+    async initiateAccountVerification(
+        @Body() initiateAccountVerificationDto:InitiateAccountVerificationDto
+    ){
+
+        const response=await this.authService.initiateAccountVerification(initiateAccountVerificationDto)
+        return ApiResponse.success("Account Verification initiated successfully",response);
+    }
+
+    @Put("/verify-account")
+    async verifyAccount(
+        @Body() verifyAccountDto: VerifyAccountDto
+    ){
+
+        const response=await this.authService.verifyAccount(verifyAccountDto.verificationCode)
+        return ApiResponse.success("Account Verification completed successfully",response);
+    }
+
+
+    @Put("/initiate-password-reset")
+    async initiatePasswordReset(
+        @Body() initiatePasswordResetDto:InitiatePasswordResetDto
+    ){
+        const response= await this.authService.initiatePasswordReset(initiatePasswordResetDto)
+        return ApiResponse.success("Password reset successfully initiated",response)
+    }
+
+    
+    @Put("/reset-password")
+    async resetPassword(
+        @Body() resetPasswordDto:ResetPasswordDto
+    ){
+        const response= await this.authService.resetPassword(resetPasswordDto)
+        return ApiResponse.success("Password reset successfully completed",response)
+    }
+
 }

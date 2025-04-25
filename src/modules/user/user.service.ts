@@ -132,5 +132,22 @@ export class UserService {
         }
     }
 
+    async findUserByVerificationCode(verificationCode: string) {
+        try {
+          const user = await this.prismaService.user.findFirst({
+            where: {
+              verificationCode, 
+            },
+          });
+      
+          if (!user) throw new NotFoundException("User not found");
+      
+          return user;
+        } catch (error) {
+          console.error("error: ", error);
+          throw new InternalServerErrorException("Error while finding user");
+        }
+      }
+      
 
 }

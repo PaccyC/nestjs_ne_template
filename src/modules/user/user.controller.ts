@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { ApiParam, ApiProperty } from '@nestjs/swagger';
 import ApiResponse from 'src/utils/ApiResponse';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { AdminGuard } from 'src/guards/admin.guard';
 
 @Controller('user')
 export class UserController {
@@ -39,12 +40,20 @@ export class UserController {
 
     @Delete("delete/:id")
     @ApiProperty({name:"id",required: true})
+    @UseGuards(AdminGuard)
     async deleteAccount(
         @Param("id") id: string
     ){
 
         const response= await this.userService.deleteAccount(id);
         return ApiResponse.success("Account deleted successfully",response)
+    }
+
+
+    @Get("/")
+    async findUserByVerificationCode(@Param("verificationCode") verificationCode: string){
+        const response = await this.userService.findUserByVerificationCode(verificationCode);
+        return ApiResponse.success("User successfully retrieved",response);
     }
 
 }
