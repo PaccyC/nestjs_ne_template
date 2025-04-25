@@ -15,7 +15,7 @@ export class UserController {
     async createUser( @Body() createUserDto: CreateUserDto){
 
         const response= await this.userService.createUser(createUserDto);
-        return  ApiResponse.success("User registered successfully",response)
+        return  ApiResponse.success("User registered successfully",201,response)
     }
 
     @Get(":id")
@@ -26,7 +26,7 @@ export class UserController {
         @Param("id") id: string
     ){
         const response= this.userService.findById(id);
-        return  ApiResponse.success("User retrieved successfully",response)
+        return  ApiResponse.success("User retrieved successfully",200,response)
 
     }
 
@@ -35,7 +35,7 @@ export class UserController {
     async searchUser(
        @Param() query: string){
         const response= this.userService.search(query)
-        return  ApiResponse.success("Search is successful",response)
+        return  ApiResponse.success("Search is successful",200,response)
     }
 
     @Delete("delete/:id")
@@ -46,14 +46,14 @@ export class UserController {
     ){
 
         const response= await this.userService.deleteAccount(id);
-        return ApiResponse.success("Account deleted successfully",response)
+        return ApiResponse.success("Account deleted successfully",204,response)
     }
 
 
     @Get("/")
     async findUserByVerificationCode(@Param("verificationCode") verificationCode: string){
         const response = await this.userService.findUserByVerificationCode(verificationCode);
-        return ApiResponse.success("User successfully retrieved",response);
+        return ApiResponse.success("User successfully retrieved",200,response);
     }
 
 }

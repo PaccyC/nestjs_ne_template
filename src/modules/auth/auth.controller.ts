@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put } from '@nestjs/common';
+import { Body, Controller, Post, Put, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import ApiResponse from 'src/utils/ApiResponse';
 import { InitiateAccountVerificationDto, InitiatePasswordResetDto, LoginDto, VerifyAccountDto } from './dto';
@@ -9,12 +9,15 @@ export class AuthController {
 
     constructor(private readonly authService: AuthService){}
 
-    @Post("login")
+    @Post("/login")
      async login(
         @Body() loginDto: LoginDto
     ){
-        const response= await this.authService.login(loginDto)
-        return ApiResponse.success("User logged in successfully",response)
+        
+            const response= await this.authService.login(loginDto)
+            return ApiResponse.success("User logged in successfully",200,response)
+            
+    
     }
 
 
@@ -24,7 +27,7 @@ export class AuthController {
     ){
 
         const response=await this.authService.initiateAccountVerification(initiateAccountVerificationDto)
-        return ApiResponse.success("Account Verification initiated successfully",response);
+        return ApiResponse.success("Account Verification initiated successfully",201,response);
     }
 
     @Put("/verify-account")
@@ -33,7 +36,7 @@ export class AuthController {
     ){
 
         const response=await this.authService.verifyAccount(verifyAccountDto.verificationCode)
-        return ApiResponse.success("Account Verification completed successfully",response);
+        return ApiResponse.success("Account Verification completed successfully",201,response);
     }
 
 
@@ -42,16 +45,17 @@ export class AuthController {
         @Body() initiatePasswordResetDto:InitiatePasswordResetDto
     ){
         const response= await this.authService.initiatePasswordReset(initiatePasswordResetDto)
-        return ApiResponse.success("Password reset successfully initiated",response)
+        return ApiResponse.success("Password reset successfully initiated",200,response)
     }
 
-    
+
     @Put("/reset-password")
     async resetPassword(
         @Body() resetPasswordDto:ResetPasswordDto
+
     ){
         const response= await this.authService.resetPassword(resetPasswordDto)
-        return ApiResponse.success("Password reset successfully completed",response)
+        return ApiResponse.success("Password reset successfully completed",201,response)
     }
 
 }

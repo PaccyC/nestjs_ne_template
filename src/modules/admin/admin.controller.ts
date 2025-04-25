@@ -18,6 +18,6 @@ export class AdminController {
         @Body() createAdminDto: CreateAdminDto
     ){
         const response= await this.adminService.createAdmin(createAdminDto);
-        return ApiResponse.success("Admin Registered successfully",response)
+        return ApiResponse.success("Admin Registered successfully",201,response)
     }
 }
